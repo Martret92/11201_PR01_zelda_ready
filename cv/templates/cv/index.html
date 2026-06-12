@@ -1449,18 +1449,18 @@
         }
 
         .forge-skill-1 {
-            left: 20%;
-            top: 58%;
+            left: 9%;
+            top: 60%;
         }
 
         .forge-skill-2 {
-            left: 8%;
+            left: 18%;
             top: 58%;
         }
 
         .forge-skill-3 {
-            left: 16%;
-            top: 59%;
+            left: 27%;
+            top: 60%;
         }
 
         .forge-skill-4 {
@@ -6489,7 +6489,7 @@
                 <img class="forge-fire" src="{% static 'assets/props/decorations/forge_fire.png' %}" alt="">
                 <img class="anvil" src="{% static 'assets/props/funiture/anvil.png' %}" alt="">
 
-                {% for skill in profile.habilidades.all %}
+                {% for skill in habilidades %}
                 {% if skill.tipo == "Tecnica" %}
                 <div class="skill-item forge-skill-{{ forloop.counter }} js-forge-skill">
                     {% if forloop.counter == 1 %}
@@ -6988,10 +6988,8 @@ Toma asiento y descubre su recorrido.
 En esta forja se templan tanto las herramientas
 como el carácter del aventurero.
 
-Habilidades destacadas:
-{% for skill in habilidades|slice:":5" %}
-• {{ skill.nombre|escapejs }}{% if skill.categoria %} — {{ skill.categoria|escapejs }}{% endif %}
-{% endfor %}
+Soft skills:{% for skill in habilidades %}{% if skill.tipo == "SoftSkill" %}
+• {{ skill.nombre|escapejs }}{% endif %}{% endfor %}
 `,
             library: `
 Bienvenido a la biblioteca.
