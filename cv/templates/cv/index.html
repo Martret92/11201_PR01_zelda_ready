@@ -6402,6 +6402,45 @@
             }
 
         }
+
+        #music-toggle {
+            position: fixed;
+
+            top: 24px;
+            right: 24px;
+
+            width: 64px;
+            height: 64px;
+
+            z-index: 9999;
+
+            border: none;
+            background: transparent;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                opacity .2s ease;
+        }
+
+        #music-toggle:hover {
+            transform: scale(1.08);
+        }
+
+        #music-toggle img {
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+        }
+
+        #music-toggle.playing {
+            opacity: 1;
+        }
+
+        #music-toggle:not(.playing) {
+            opacity: .55;
+        }
     </style>
 </head>
 
@@ -6556,7 +6595,8 @@
                         <h3>{{ edu.titulo }}</h3>
                         <span>{{ edu.centro }}{% if edu.ubicacion %} · {{ edu.ubicacion }}{% endif %}</span>
                         <p>
-                            <strong>Periodo:</strong> {{ edu.fecha_inicio }}{% if edu.fecha_fin %} - {{edu.fecha_fin}}{%elif edu.en_curso %} - Actualidad{% endif %}
+                            <strong>Periodo:</strong> {{ edu.fecha_inicio }}{% if edu.fecha_fin %} -
+                            {{edu.fecha_fin}}{%elif edu.en_curso %} - Actualidad{% endif %}
                             <br>
                             <strong>Estado:</strong> {% if edu.en_curso %}En curso{% else %}Finalizado{% endif %}
                         </p>
@@ -6880,6 +6920,12 @@
         src="{% static 'assets/audio/The Legend of Zelda_ A Link to the Past OST - Title Theme.mp3' %}"
         preload="auto"></audio>
 
+    <button id="music-toggle" aria-label="Toggle music">
+        <img src="{% static 'assets/props/collectibles/ocarina.png' %}" alt="Ocarina">
+    </button>
+    <audio id="bg-music" loop preload="auto">
+        <source src="{% static 'assets/audio/zelda-theme.mp3' %}" type="audio/mpeg">
+    </audio>
 
     <script>
         const world = document.getElementById("world");
@@ -8138,27 +8184,51 @@ Cada proyecto completado suma una nueva historia.
 
         function moveQuestBarrel(barrel, event) {
             const questRect = questBoard.getBoundingClientRect();
-
             barrel.style.left =
                 `${event.clientX - questRect.left}px`;
-
             barrel.style.top =
                 `${event.clientY - questRect.top}px`;
-
             barrel.style.bottom = "auto";
-
             barrel.style.transform =
                 "translate(-50%, -50%) scale(1.05)";
         }
-
         function updateBodyHeight() {
             document.body.style.height = `${world.scrollHeight}px`;
         }
-
         updateBodyHeight();
-
         window.addEventListener("resize", updateBodyHeight);
+
+        // ===== MUSICA GLOBAL =====
+
+        const music = document.getElementById("bg-music");
+        const musicBtn = document.getElementById("music-toggle");
+
+        let musicPlaying = false;
+
+        musicBtn.addEventListener("click", () => {
+
+            if (!musicPlaying) {
+
+                music.volume = 0.35;
+
+                music.play();
+
+                musicBtn.classList.add("playing");
+
+            } else {
+
+                music.pause();
+
+                musicBtn.classList.remove("playing");
+
+            }
+
+            musicPlaying = !musicPlaying;
+
+        });
+
     </script>
+
 </body>
 
 </html>
