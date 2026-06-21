@@ -6526,11 +6526,11 @@
                     <span>📜 Perfil del Aventurero</span>
                     <p><strong>Nombre:</strong> {{ cv.personal_info.nombre }} {{ cv.personal_info.apellidos }}</p>
                     <p><strong>Ciudad:</strong> {{ cv.personal_info.ciudad }}</p>
-                    <p><strong>País:</strong> {{ cv.personal_info.pais }}</p>
-                    <p><strong>Nacionalidad:</strong> {{ cv.personal_info.nacionalidad }}</p>
-                    <p><strong>Disponibilidad:</strong> {{ cv.personal_info.disponibilidad }}</p>
+                    <p><strong>País:</strong> {{ cv.personal_info.pais|default_if_none:"" }}</p>
+                    <p><strong>Nacionalidad:</strong> {{ cv.personal_info.nacionalidad|default_if_none:"" }}</p>
+                    <p><strong>Disponibilidad:</strong> {{ cv.personal_info.disponibilidad|default_if_none:"" }}</p>
                     <p><strong>Carnet:</strong> {% if cv.personal_info.carnet_conducir %}Sí{% else %}No{% endif %}</p>
-                    <p><strong>Código postal:</strong> {{ cv.personal_info.codigo_postal }}</p>
+                    <p><strong>Código postal:</strong> {{ cv.personal_info.codigo_postal|default_if_none:"" }}</p>
                     <p><strong>Fecha nacimiento:</strong> {{ cv.personal_info.fecha_nacimiento }}</p>
                 </div>
                 <div class="village-portrait is-hidden">
@@ -6845,10 +6845,10 @@
                 <div class="dungeon-note dungeon-note--extra">
                     <span>REGISTRO SECRETO</span>
                     <h3>Otros datos</h3>
-                    <p>💼 Teletrabajo: {{ other_info.teletrabajo }}</p>
+                    <p>💼 Teletrabajo: {{ other_info.teletrabajo|default_if_none:"" }}</p>
                     <p>✈️ Disponibilidad para viajar: {% if other_info.disponibilidad_viajar %}Sí{% else %}No{% endif %}
                     </p>
-                    <p>💰 Salario: {{ other_info.expectativa_salarial }}</p>
+                    <p>💰 Salario: {{ other_info.expectativa_salarial|default_if_none:"" }}</p>
                 </div>
                 <div class="dungeon-cracked-floor"></div>
                 <img class="dungeon-torch-left" src="{% static 'assets/props/decorations/torch.png' %}" alt="">
